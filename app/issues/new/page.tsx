@@ -14,8 +14,6 @@ import { z } from "zod";
 import ErrorMessage from "@/app/components/ErrorMessage";
 import Spinner from "@/app/components/Spinner";
 
-type IssueForm = z.infer<typeof issueSchema>;
-
 const NewIssuePage = () => {
   const router = useRouter();
   const {
@@ -23,7 +21,7 @@ const NewIssuePage = () => {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<IssueForm>({
+  } = useForm<any>({
     resolver: zodResolver(issueSchema),
   });
   const [error, setError] = useState("");
@@ -54,7 +52,7 @@ const NewIssuePage = () => {
         <TextField.Root>
           <TextField.Input placeholder="Title" {...register("title")} />
         </TextField.Root>
-        <ErrorMessage>{errors.title?.message}</ErrorMessage>
+        {/*<ErrorMessage>{error.title?.message}</ErrorMessage>*/}
         <Controller
           name="description"
           control={control}
@@ -62,7 +60,7 @@ const NewIssuePage = () => {
             <SimpleMDE placeholder="Description" {...field} />
           )}
         />
-        <ErrorMessage>{errors.description?.message}</ErrorMessage>
+        {/* <ErrorMessage>{error.description?.message}</ErrorMessage> */}
         <Button disabled={isSubmitting}>
           {isSubmitting && <Spinner />} Submit New Issue
         </Button>
